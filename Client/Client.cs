@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlockchainPlayground.Model;
+using System;
 using System.Net.Sockets;
 using System.Text;
 
@@ -23,9 +24,21 @@ namespace Client
 
             var receivedBytes = new byte[client.ReceiveBufferSize];
             while (stream.Read(receivedBytes, 0, receivedBytes.Length) != 0)
-            {
                 onReceive(receivedBytes);
-            };
+        }
+
+        public void SendTransaction(Transaction transaction, Action<byte[]> onReceive)
+        {
+            var stream = client.GetStream();
+
+            var transactionBytes = Encoding.UTF8.GetBytes(transaction.ToString());
+
+            stream.Write(transactionBytes, 0, transactionBytes.Length);
+
+            var receivedBytes = new byte[client.ReceiveBufferSize];
+
+            while (stream.Read(receivedBytes, 0, receivedBytes.Length) != 0)
+                onReceive(receivedBytes);
         }
 
         public void Close()

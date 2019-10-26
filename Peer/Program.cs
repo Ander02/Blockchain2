@@ -12,32 +12,39 @@ namespace Peer
     {
         public static async Task Main(string[] args)
         {
+
+
+            //await RunTest();
+        }
+
+        private static async Task RunTest()
+        {
             var tasks = new List<Task>();
             foreach (var (ip, port) in Constants.Peers)
             {
                 var task = Task.Run(async () =>
-               {
-                   var server = new Server(IPAddress.Parse(ip), port);
+                {
+                    var server = new Server(IPAddress.Parse(ip), port);
 
-                   await server.Start((object clientObj) =>
-                   {
-                       var client = clientObj as TcpClient;
+                    await server.Start((object clientObj) =>
+                    {
+                        var client = clientObj as TcpClient;
 
-                       var stream = client.GetStream();
+                        var stream = client.GetStream();
 
-                       byte[] buffer = new byte[client.ReceiveBufferSize];
+                        byte[] buffer = new byte[client.ReceiveBufferSize];
 
-                       int i;
-                       while ((i = stream.Read(buffer, 0, buffer.Length)) != 0)
-                       {
-                           var message = Encoding.UTF8.GetString(buffer).Replace("\0", "");
+                        int i;
+                        while ((i = stream.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            var message = Encoding.UTF8.GetString(buffer).Replace("\0", "");
 
-                           Console.WriteLine($"Received Message: {message} from {ip}:{port}");
-                           var responseBytes = Encoding.UTF8.GetBytes("Received");
-                           stream.Write(responseBytes, 0, responseBytes.Length);
-                       }
-                   });
-               });
+                            Console.WriteLine($"Received Message: {message} from {ip}:{port}");
+                            var responseBytes = Encoding.UTF8.GetBytes("Received");
+                            stream.Write(responseBytes, 0, responseBytes.Length);
+                        }
+                    });
+                });
                 tasks.Add(task);
             }
 

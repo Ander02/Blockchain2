@@ -11,8 +11,7 @@ namespace BlockchainPlayground.Core
 {
     public static class KeyManager
     {
-        
-        public static string GeneratePrivateKey(int numberNodes = 15)
+        public static string GeneratePrivateKey()
         {
             RSACryptoServiceProvider RSAO = new RSACryptoServiceProvider();
             string privateKey = RSAO.ToXmlString(true);
@@ -35,7 +34,6 @@ namespace BlockchainPlayground.Core
             return (@private.To64(), @public.To64());
         }
 
-
         public static string SignMessage(string message, string privateKey)
         {
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
@@ -53,13 +51,13 @@ namespace BlockchainPlayground.Core
         }
 
 
-        public static  bool ValidateMessage(string publicKey, string message, string signature)
+        public static bool ValidateMessage(string publicKey, string message, string signature)
         {
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
             RSA.FromXmlString(publicKey.From64String());
             RSAPKCS1SignatureDeformatter RSADeformatter = new RSAPKCS1SignatureDeformatter(RSA);
             RSADeformatter.SetHashAlgorithm("SHA256");
-            
+
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
             byte[] messageHash = messageBytes.GetSHA256();

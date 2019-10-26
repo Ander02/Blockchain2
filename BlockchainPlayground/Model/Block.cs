@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BlockchainPlayground.Model
 {
@@ -20,11 +15,12 @@ namespace BlockchainPlayground.Model
         public BContent Content { get; set; }
         public double Size
         {
-            get  {
-                var @string = JsonConvert.SerializeObject(Content) + Hash;
+            get;
+            //{
+            //var @string = JsonConvert.SerializeObject(Content) + Hash;
 
-                @string.
-            }
+            //@string.
+            //}
 
         }
         public string Hash { get; set; }

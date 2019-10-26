@@ -33,7 +33,6 @@ namespace Peer
             {
                 Console.WriteLine($"Received exception {ex}");
             }
-
         }
     }
 }

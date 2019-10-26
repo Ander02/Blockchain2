@@ -24,50 +24,50 @@ namespace BlockchainPlayground
         static void Main(string[] args)
         {
 
-            KeyManager m = new KeyManager();
+            //KeyManager m = new KeyManager();
 
 
-            var privateKey = m.GeneratePrivateKey();
-            var secondPrivateKey = m.GeneratePrivateKey();
+            //var privateKey = m.GeneratePrivateKey();
+            //var secondPrivateKey = m.GeneratePrivateKey();
 
-            var publicKey = m.GeneratePublicKey(privateKey);
-            var secondPublicKey = m.GeneratePublicKey(secondPrivateKey);
+            //var publicKey = m.GeneratePublicKey(privateKey);
+            //var secondPublicKey = m.GeneratePublicKey(secondPrivateKey);
 
-            Console.WriteLine($"Private Key:");
-            Console.WriteLine($"{privateKey}");
-            Console.WriteLine();
-            Console.WriteLine($"Public Key:");
-            Console.WriteLine($"{publicKey}");
-            Console.WriteLine();
-            string message = "";
-            do
-            {
-                Console.WriteLine();
-                Console.WriteLine("Type a message (Just enter to leave):");
-                message = Console.ReadLine();
+            //Console.WriteLine($"Private Key:");
+            //Console.WriteLine($"{privateKey}");
+            //Console.WriteLine();
+            //Console.WriteLine($"Public Key:");
+            //Console.WriteLine($"{publicKey}");
+            //Console.WriteLine();
+            //string message = "";
+            //do
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine("Type a message (Just enter to leave):");
+            //    message = Console.ReadLine();
 
-                Console.WriteLine();
-                Console.WriteLine("Type a fake message");
-                string message2 = Console.ReadLine();
+            //    Console.WriteLine();
+            //    Console.WriteLine("Type a fake message");
+            //    string message2 = Console.ReadLine();
 
-                string signature = m.SignMessage(message, privateKey);
-                string signature2 = m.SignMessage(message2, secondPrivateKey);
+            //    string signature = m.SignMessage(message, privateKey);
+            //    string signature2 = m.SignMessage(message2, secondPrivateKey);
 
-                Console.WriteLine($"Message signature: {signature}");
-                Console.WriteLine();
-                Console.WriteLine($"Is Valid: {m.ValidateMessage(publicKey, message, signature)}");
-                Console.WriteLine();
-                Console.WriteLine($"Is Valid with second public key : {m.ValidateMessage(secondPublicKey, message, signature)}");
-
-
+            //    Console.WriteLine($"Message signature: {signature}");
+            //    Console.WriteLine();
+            //    Console.WriteLine($"Is Valid: {m.ValidateMessage(publicKey, message, signature)}");
+            //    Console.WriteLine();
+            //    Console.WriteLine($"Is Valid with second public key : {m.ValidateMessage(secondPublicKey, message, signature)}");
 
 
 
-                Console.WriteLine($"Fake message Is Valid with message signature ({signature}): {m.ValidateMessage(publicKey, message2, signature)}");
-                Console.WriteLine($"Fake message Is Valid with message signature ({signature}): {m.ValidateMessage(secondPublicKey, message2, signature2)}");
 
-            }
-            while (!string.IsNullOrWhiteSpace(message));
+
+            //    Console.WriteLine($"Fake message Is Valid with message signature ({signature}): {m.ValidateMessage(publicKey, message2, signature)}");
+            //    Console.WriteLine($"Fake message Is Valid with message signature ({signature}): {m.ValidateMessage(secondPublicKey, message2, signature2)}");
+
+            //}
+            //while (!string.IsNullOrWhiteSpace(message));
 
 
 

@@ -26,8 +26,9 @@ namespace BlockchainPlayground.Model
         public long Size { get; set; }
         public TransactionStatus Status { get; set; }
         public virtual TransactionBody Body { get; set; }
-        
 
+        public override string ToString() 
+            => JsonConvert.SerializeObject(this);
     }
 
     public enum TransactionStatus

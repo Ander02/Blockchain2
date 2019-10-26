@@ -4,16 +4,16 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace BlockchainPlayground.Core
 {
     public class Operator
     {
         public Blockchain Chain { get; set; }
+
         public Pool Pool { get; set; }
+
         public Operator()
         {
             LoadChain();
@@ -35,15 +35,14 @@ namespace BlockchainPlayground.Core
 
         public Transaction CreateTransaction(string body, string privateKey)
         {
-            Transaction t = new Transaction()
+            var transaction = new Transaction()
             {
                 StringBody = body,
                 From = KeyManager.GeneratePublicKey(privateKey),
                 Signature = KeyManager.SignMessage(body, privateKey)
             };
 
-
-            return t;
+            return transaction;
         }
 
         public bool ValidateTransaction(Transaction transaction)
@@ -74,10 +73,7 @@ namespace BlockchainPlayground.Core
                 throw new InvalidOperationException($"Impossible to include transaction ({transaction.Signature}) in the pool. The transaction exceds the available storage space.");
 
             Pool.Transactions.Add(new Pool.PoolTransaction(transaction));
-
-
         }
-
 
         public event Action<Block> BlockMinned;
 
@@ -94,7 +90,7 @@ namespace BlockchainPlayground.Core
                 }
             };
 
-           
+
             Thread blockMiningThread = new Thread(MineBlock(block, blockMaxSize))
             {
 
